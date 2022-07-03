@@ -55,7 +55,7 @@ public class AuthController : ControllerBase
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
-    private static bool VerifyPasswordHash(string requestPassword, byte[] userPasswordHash, byte[] userPasswordSalt)
+    private static bool VerifyPasswordHash(string requestPassword, IEnumerable<byte> userPasswordHash, byte[] userPasswordSalt)
     {
         using var hmac = new HMACSHA512(userPasswordSalt);
         var computeHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(requestPassword));
